@@ -22,10 +22,10 @@ public class Hash {
     return url;
   }
 
-  public static void Main(string[] args) {
+  public static int Main(string[] args) {
     if (args.Length != 2) {
       System.Console.Error.WriteLine(@"Usage: Hash.exe <secret> <url>");
-      return;
+      return 1;
     }
 
     string secret = args[0].Trim();
@@ -34,11 +34,20 @@ public class Hash {
     string urlWithoutSignature = Regex.Replace(url, REGEX_SIGNATURE_END, "");
     string encodedUrl = EncodeURL(secret, urlWithoutSignature);
 
-    System.Console.Error.WriteLine("");
-    System.Console.Error.WriteLine("url:          " + url);
-    System.Console.Error.WriteLine("");
-    System.Console.Error.WriteLine("encoded:      " + encodedUrl);
-    System.Console.Error.WriteLine("");
-    System.Console.Error.WriteLine("hash matches: " + url.Equals(encodedUrl));
+    System.Console.Error.WriteLine(@"");
+    System.Console.Error.WriteLine(@"url:          " + url);
+    System.Console.Error.WriteLine(@"");
+    System.Console.Error.WriteLine(@"encoded:      " + encodedUrl);
+    System.Console.Error.WriteLine(@"");
+
+    bool matches = url.Equals(encodedUrl);
+
+    if (!matches) {
+      System.Console.Error.WriteLine(@"ERROR: Hash does not match");
+      return 2;
+    }
+
+    System.Console.Error.WriteLine(@"hash matches: " + url.Equals(encodedUrl));
+    return 0;
   }
 }
