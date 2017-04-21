@@ -47,7 +47,7 @@ public class Hash {
       return 2;
     }
 
-    System.Console.Error.WriteLine(@"hash matches: " + url.Equals(encodedUrl));
+    System.Console.Error.WriteLine(@"Hash matches!");
     return 0;
   }
 }
